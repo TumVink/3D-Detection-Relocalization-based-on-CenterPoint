@@ -9,7 +9,7 @@
 
 We provide two configs, [rio_model.yaml](tools/cfgs/rio_configs/rio_model.yaml) for the centerpoint model on RIO Scannet and [scannet_model.yaml](tools/cfgs/scannet_configs/scannet_model.yaml) which execute centerpoint on ScanNet.
 
-##Installation
+## Installation
 1. download the dataset (3RScan and Scannet).
 2. refer [readme](https://github.com/tianweiy/CenterPoint/blob/master/README.md) of origin CenterPoint repo to install all dependencies.
 
