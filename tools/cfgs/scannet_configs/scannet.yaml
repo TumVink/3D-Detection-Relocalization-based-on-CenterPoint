@@ -1,0 +1,42 @@
+DATASET: 'ScanNet'
+
+#POINT_CLOUD_RANGE: [-6.5,-9.5,-1.5, 5.5, 8.5, 5.5]
+POINT_CLOUD_RANGE: [-3.5,-6.5,-1.5, 3.5, 5.5, 3.5]
+#POINT_CLOUD_RANGE: [-4,-8,-4, 4, 8, 4]
+
+SAMPLE_SIZE: 50000
+
+ROOT_PATH : '~/Downloads/CenterPoint-Kitti-V1/'
+
+DATA_SPLIT: {
+    'train': train,
+    'test': val
+}
+BATCH_SIZE : 8
+
+FOV_POINTS_ONLY: True
+
+POINT_FEATURE_ENCODING: {
+    encoding_type: absolute_coordinates_encoding,
+    used_feature_list: ['x', 'y', 'z'],#, 'intensity'],   no intensity in our case
+    src_feature_list: ['x', 'y', 'z']#, 'intensity'],     no intensity in our case
+}
+
+
+DATA_PROCESSOR:
+    - NAME: mask_points_and_boxes_outside_range
+      REMOVE_OUTSIDE_BOXES: True
+
+    - NAME: shuffle_points
+      SHUFFLE_ENABLED: {
+        'train': False,
+        'test': False
+      }
+
+    - NAME: transform_points_to_voxels
+      VOXEL_SIZE: [0.025, 0.025, 0.05]
+      MAX_POINTS_PER_VOXEL: 5
+      MAX_NUMBER_OF_VOXELS: {
+        'train': 10000,
+        'test': 20000
+      }

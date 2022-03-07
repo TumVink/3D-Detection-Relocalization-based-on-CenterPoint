@@ -1,0 +1,48 @@
+Model Part:
+    1. Center Point:
+
+        1.1 Module List:  'vfe', 'backbone_3d', 'map_to_bev_module', 'pfe',
+                       'backbone_2d', 'dense_head',  'point_head', 'roi_head'
+
+        1.2 Point features encoder:
+
+        1.3 vfe:  take the mean value of all points features in the same voxel
+                        input:
+                            batch_dict:
+                                voxels: (num_voxels, max_points_per_voxel, C)
+                                voxel_num_points: optional (num_voxels)
+                            **kwargs:
+                        Returns:
+                            vfe_features: (num_voxels, C)
+
+        1.4 backbone 3d:    Sparse Conv (VoxelResBackBone8x)
+                        Args:
+                            batch_dict:
+                                batch_size: int
+                                vfe_features: (num_voxels, C)
+                                voxel_coords: (num_voxels, 4), [batch_idx, z_idx, y_idx, x_idx]  ???
+                        Returns:
+                            batch_dict:
+                                encoded_spconv_tensor: sparse tensor
+
+        1.5 map_to_bev_module:  HeightCompression : N, C, D, H, W -> N, C * D, H, W
+                                                 encoded_spconv_tensor  ->  spatial_features
+
+        1.6 backbones_2d: BaseBEVBackbone, contains some conv and upsample layers
+                           C: 128   ->    128 or 256 (not sure)
+
+        1.7 build_pfe:   PFE: proposal features extraction        WE DONOT HAVE THIS ONE.
+                        PointNet2 based SetAbstraction, and some FPS and interpolation methods
+
+        1.8 dense_head: input: spatial_features_2d from backbone_2d
+                        generate targets(boxes, heatmaps, clses), update data_dict['batch_cls_preds'],data_dict['batch_box_preds'],data_dict['cls_preds_normalized']
+
+
+
+        1.9 Postprocessing: not for training phase
+
+
+    2.0
+        Loss: cls_loss: GaussianFocalLoss of heatmap
+            + box_loss: L1 loss
+
