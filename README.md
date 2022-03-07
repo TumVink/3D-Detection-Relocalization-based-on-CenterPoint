@@ -4,7 +4,7 @@
 
 <p align="center"> <img src='docs/CenterPoint.png' align="center" height="230px"> </p>
 
-> [**3D Object Detection and Relocalization in Indoor Scenes**](https://www.overleaf.com/project/61f8ab85e71e3f6d8f6e7a91),            
+> [**3D Object Detection and Relocalization in Indoor Scenes**](https://github.com/xiongyiheng/xiongyiheng.github.io/blob/main/report/3D_Object_Detection_and_Relocalization_in_Indoor_Scenes.pdf),            
 > Yiheng Xiong, Jingsong Liu        
 
 We provide two configs, [rio_model.yaml](tools/cfgs/rio_configs/rio_model.yaml) for the centerpoint model on RIO Scannet and [scannet_model.yaml](tools/cfgs/scannet_configs/scannet_model.yaml) which execute centerpoint on ScanNet.
